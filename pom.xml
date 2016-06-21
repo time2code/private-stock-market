@@ -21,5 +21,10 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.jboss.weld.se</groupId>
+      <artifactId>weld-se-core</artifactId>
+      <version>3.0.0.Alpha16</version>
+    </dependency>
   </dependencies>
 </project>
