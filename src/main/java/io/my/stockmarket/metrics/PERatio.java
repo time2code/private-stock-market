@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * Share Price / Earnings ratio
  */
-public class PERatio implements StockValuation {
+public class PERatio implements CommonStock {
 
     public BigDecimal evaluate() {
         return BigDecimal.ZERO;
