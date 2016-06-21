@@ -1,9 +1,9 @@
 package io.my.stockmarket.domain;
 
 /**
- * Par value,
+ * ParValue value,
  * Nominal value, Face value
  */
-public class Par {
-    
+public class ParValue {
+
 }

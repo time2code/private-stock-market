@@ -5,8 +5,7 @@ import java.math.BigDecimal;
 /**
  * Stock valuation method
  */
-public interface StockValuation {
+public interface CommonStock {
 
-    //TODO: provide default method for interface
     BigDecimal evaluate();
 }
