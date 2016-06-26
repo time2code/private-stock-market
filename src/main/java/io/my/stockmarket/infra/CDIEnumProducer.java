@@ -1,4 +1,6 @@
-package io.my.stockmarket.registry;
+package io.my.stockmarket.infra;
+
+import io.my.stockmarket.registry.LastDividendRegistry;
 
 import javax.enterprise.inject.Produces;
 

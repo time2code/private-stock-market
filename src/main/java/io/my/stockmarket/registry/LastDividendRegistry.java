@@ -1,7 +1,5 @@
 package io.my.stockmarket.registry;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
