@@ -1,5 +1,7 @@
 package io.my.stockmarket.metrics;
 
+import io.my.stockmarket.domain.Stock;
+
 import java.math.BigDecimal;
 
 /**
@@ -7,7 +9,7 @@ import java.math.BigDecimal;
  */
 public class PERatio implements CommonStock {
 
-    public BigDecimal evaluate() {
+    public BigDecimal evaluate(Stock stock) {
         return BigDecimal.ZERO;
     }
 }

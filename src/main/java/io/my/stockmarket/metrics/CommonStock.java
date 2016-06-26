@@ -1,5 +1,7 @@
 package io.my.stockmarket.metrics;
 
+import io.my.stockmarket.domain.Stock;
+
 import java.math.BigDecimal;
 
 /**
@@ -7,5 +9,5 @@ import java.math.BigDecimal;
  */
 public interface CommonStock {
 
-    BigDecimal evaluate();
+    BigDecimal evaluate(Stock stock);
 }
