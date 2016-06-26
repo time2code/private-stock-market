@@ -8,8 +8,8 @@ import javax.enterprise.inject.Produces;
 public class EnumProducer {
 
     @Produces
-    public static LatestDividendRegistry getLatestDividendRegistry()
+    public static LastDividendRegistry getLatestDividendRegistry()
     {
-        return LatestDividendRegistry.LATEST_DIVIDEND;
+        return LastDividendRegistry.LATEST_DIVIDEND;
     }
 }

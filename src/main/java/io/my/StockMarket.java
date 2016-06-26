@@ -2,7 +2,8 @@ package io.my;
 
 import io.my.stockmarket.domain.Stock;
 import io.my.stockmarket.metrics.DividendYield;
-import io.my.stockmarket.metrics.DividentYieldCS;
+import io.my.stockmarket.metrics.GeometricMean;
+import io.my.stockmarket.metrics.PERatio;
 import org.jboss.weld.environment.se.bindings.Parameters;
 import org.jboss.weld.environment.se.events.ContainerInitialized;
 
@@ -11,24 +12,28 @@ import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static io.my.stockmarket.registry.LatestDividendRegistry.POP;
-import static io.my.stockmarket.registry.LatestDividendRegistry.TEA;
+import static io.my.stockmarket.registry.LastDividendRegistry.POP;
 
 /**
  * Private Stock Market simulation - Dark Pool
  */
 public class StockMarket {
 
-    @Inject @DividentYieldCS
-    private DividendYield dividendYield;
+    @Inject private DividendYield dividendYield;
+    @Inject private PERatio peRatio;
+    @Inject private GeometricMean geometricMean;
 
     public void openMarket(@Observes ContainerInitialized event, @Parameters List<String> params) {
         Stock stock = Stock.builder()
                 .id(POP)
                 .parValue(new BigDecimal("13"))
                 .build();
-        BigDecimal price = dividendYield.evaluate(stock);
+        BigDecimal dividendYieldValue = dividendYield.evaluate(stock);
         System.out.println("Hello Stock Market! " + params.size());
-        System.out.printf("DividendYield: %s \n", price);
+        System.out.printf("DividendYield: %s \n", dividendYieldValue);
+        BigDecimal peRationValue = peRatio.evaluate(stock);
+        System.out.printf("P/E Ratio: %s \n", peRationValue);
+        BigDecimal geoMetricMean = geometricMean.evaluate(stock);
+        System.out.printf("Geometric Mean: %s \n", geoMetricMean);
     }
 }

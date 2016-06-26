@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Latest Dividend Registry
  */
-public enum LatestDividendRegistry {
+public enum LastDividendRegistry {
 
     LATEST_DIVIDEND;
 
