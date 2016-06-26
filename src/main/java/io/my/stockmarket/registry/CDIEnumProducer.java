@@ -5,7 +5,7 @@ import javax.enterprise.inject.Produces;
 /**
  * Helper class to inject enums
  */
-public class EnumProducer {
+public class CDIEnumProducer {
 
     @Produces
     public static LastDividendRegistry getLatestDividendRegistry()
