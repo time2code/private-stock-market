@@ -24,13 +24,17 @@ public enum TradeTxRegistry {
         return tradeTx;
     }
 
-    private List<TradeTx> stockTxs(String stockID) {
-        List<TradeTx> stockTxs = txRegistry.get(stockID);
-        return stockTxs != null ? stockTxs : newTxList(stockID);
+    public int numberOfTxs(String StockId) {
+        return stockTxs(StockId).size();
     }
 
-    private List<TradeTx> newTxList(String stockID) {
-        txRegistry.put(stockID, new LinkedList<>());
-        return txRegistry.get(stockID);
+    private List<TradeTx> stockTxs(String StockId) {
+        List<TradeTx> stockTxs = txRegistry.get(StockId);
+        return stockTxs != null ? stockTxs : newTxList(StockId);
+    }
+
+    private List<TradeTx> newTxList(String StockId) {
+        txRegistry.put(StockId, new LinkedList<>());
+        return txRegistry.get(StockId);
     }
 }
