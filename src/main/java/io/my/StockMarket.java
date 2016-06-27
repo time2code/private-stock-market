@@ -9,9 +9,11 @@ import io.my.stockmarket.registry.Stocks;
 import io.my.stockmarket.registry.TradeTxRegistry;
 import org.jboss.weld.environment.se.bindings.Parameters;
 import org.jboss.weld.environment.se.events.ContainerInitialized;
+import org.springframework.shell.Bootstrap;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class StockMarket {
     @Inject private GeometricMean geometricMean;
     @Inject private TradeTxRegistry tradeTxRegistry;
 
-    public void openMarket(@Observes ContainerInitialized event, @Parameters List<String> params) {
+    public void openMarket(@Observes ContainerInitialized event, @Parameters List<String> params) throws IOException {
         Stock stock = Stock.builder()
                 .id(Stocks.POP.name())
                 .parValue(new BigDecimal("13"))
@@ -42,6 +44,6 @@ public class StockMarket {
                 .price(new BigDecimal("2.5"))
                 .build());
         System.out.printf("Number of Txs: %s \n", tradeTxRegistry.numberOfTxs(Stocks.POP.name()));
-
+        Bootstrap.main(null);
     }
 }
