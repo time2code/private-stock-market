@@ -7,7 +7,8 @@ import java.math.BigDecimal;
 /**
  * Stock valuation method
  */
-public interface CommonStock {
+public interface FinOp {
 
     BigDecimal evaluate(Stock stock);
+    String name();
 }

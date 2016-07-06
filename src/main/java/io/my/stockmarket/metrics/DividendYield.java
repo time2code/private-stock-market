@@ -9,7 +9,9 @@ import java.math.BigDecimal;
 /**
  * Dividend Yield
  */
-public class DividendYield implements CommonStock {
+public class DividendYield implements FinOp {
+
+    static final String NAME = "Dividend Yield";
 
     @Inject
     private LastDividendRegistry ldRegistry;
@@ -18,6 +20,11 @@ public class DividendYield implements CommonStock {
         //TODO: handle null and consider Optional
         return ldRegistry.find(stock.getId())
                 .divide(stock.getParValue(), 2, BigDecimal.ROUND_HALF_UP);
+    }
+
+    @Override
+    public String name() {
+        return NAME;
     }
 }
 
