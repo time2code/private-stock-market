@@ -17,8 +17,10 @@ public class PERatio implements FinOp {
     private LastDividendRegistry ldRegistry;
 
     public BigDecimal evaluate(Stock stock) {
-        return stock.getParValue()
-                .divide(ldRegistry.find(stock.getId()), 2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal dividend = ldRegistry.find(stock.getTicker());
+        return dividend.compareTo(BigDecimal.ZERO) > 0
+                ? stock.getParValue().divide(dividend, 2, BigDecimal.ROUND_HALF_UP)
+                : stock.getParValue();
     }
 
     @Override

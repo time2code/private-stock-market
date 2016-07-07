@@ -16,19 +16,11 @@ public enum TradeTxRegistry {
 
     private static final Map<String, List<TradeTx>> txRegistry = new HashMap<>();
 
-
-    public TradeTx trade(TradeTx tradeTx) {
-        String stockID = tradeTx.getStockID();
-        List<TradeTx> stockTxs = stockTxs(stockID);
-        stockTxs.add(tradeTx);
-        return tradeTx;
-    }
-
     public int numberOfTxs(String StockId) {
         return stockTxs(StockId).size();
     }
 
-    private List<TradeTx> stockTxs(String StockId) {
+    List<TradeTx> stockTxs(String StockId) {
         List<TradeTx> stockTxs = txRegistry.get(StockId);
         return stockTxs != null ? stockTxs : newTxList(StockId);
     }

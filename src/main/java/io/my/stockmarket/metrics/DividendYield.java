@@ -18,7 +18,7 @@ public class DividendYield implements FinOp {
 
     public BigDecimal evaluate(Stock stock) {
         //TODO: handle null and consider Optional
-        return ldRegistry.find(stock.getId())
+        return ldRegistry.find(stock.getTicker())
                 .divide(stock.getParValue(), 2, BigDecimal.ROUND_HALF_UP);
     }
 

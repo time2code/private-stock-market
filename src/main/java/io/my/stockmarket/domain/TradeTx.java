@@ -7,13 +7,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * Single Trade transaction
+ * Single Trade Transaction
  */
 @Getter
 @Builder
 public class TradeTx {
 
-    private String StockID;
+    private String stockTicker;
     private BigDecimal price;
     private int quantity;
     private LocalDateTime time;

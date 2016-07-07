@@ -12,8 +12,8 @@ import java.math.BigDecimal;
 @Getter
 public class Stock {
 
-    private String id;
-    private String name;
+    //id
+    private String ticker;
     private StockType stockType;
     private BigDecimal parValue;
 }

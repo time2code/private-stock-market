@@ -1,7 +1,7 @@
 package io.my.stockmarket.domain;
 
 /**
- * Created by ego on 6/27/16.
+ * Trade Transaction Type
  */
 public enum TradeTxType {
 

@@ -107,3 +107,53 @@ finops
 // Spring Shell 1.2.0.M1 log opened at 2016-07-07 11:07:05
 help
 finops
+// Spring Shell 1.2.0.M1 log opened at 2016-07-07 11:26:32
+help
+dividendYield
+// Spring Shell 1.2.0.M1 log opened at 2016-07-07 11:29:19
+dividendYield
+// Spring Shell 1.2.0.M1 log opened at 2016-07-07 17:42:00
+help
+// Spring Shell 1.2.0.M1 log opened at 2016-07-07 17:43:48
+help
+dividendYield --ticker 2
+dividendYield --ticker 2
+dividendYield --ticker POP
+// Spring Shell 1.2.0.M1 log opened at 2016-07-07 17:45:57
+// Spring Shell 1.2.0.M1 log opened at 2016-07-07 17:47:30
+help
+dividendYield --ticker POP
+help
+// Spring Shell 1.2.0.M1 log opened at 2016-07-07 17:54:28
+help 
+dividendYield --ticker POP
+// Spring Shell 1.2.0.M1 log opened at 2016-07-07 17:56:59
+dividendYield --ticker lolo
+dividendYield --ticker "a"
+dividendYield --ticker "1"
+dividendYield --ticker ;';
+dividendYield --ticker pop
+dividendYield --ticker POP
+// Spring Shell 1.2.0.M1 log opened at 2016-07-07 18:00:07
+dividendYield --ticker POP
+dividendYield --ticker pop
+help ticker
+help
+help dividendYield
+help dividendYield ticker
+help dividendYield
+// Spring Shell 1.2.0.M1 log opened at 2016-07-07 18:02:35
+dividendYield --ticker a
+help dividendYield
+// Spring Shell 1.2.0.M1 log opened at 2016-07-07 18:15:19
+help
+help peRation
+help peRatio
+peRatio --ticker o
+peRatio --ticker POP
+// Spring Shell 1.2.0.M1 log opened at 2016-07-07 21:12:54
+// [failed] peRatio --ticker TEA
+// Spring Shell 1.2.0.M1 log opened at 2016-07-07 22:29:56
+sellStock --ticker POP --quantity 10
+// Spring Shell 1.2.0.M1 log opened at 2016-07-07 23:26:47
+sellStock --ticker POP --quantity 9

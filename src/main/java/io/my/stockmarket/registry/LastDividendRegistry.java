@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-import static io.my.stockmarket.registry.Stocks.*;
+import static io.my.stockmarket.registry.StockRegistry.*;
 
 /**
  * Latest Dividend Registry
@@ -18,11 +18,11 @@ public enum LastDividendRegistry {
     static
     {
         dividendsRegistry = new HashMap<>();
-        dividendsRegistry.put(TEA.name(), TEA.getDividend());
-        dividendsRegistry.put(POP.name(), POP.getDividend());
-        dividendsRegistry.put(ALE.name(), ALE.getDividend());
-        dividendsRegistry.put(GIN.name(), GIN.getDividend());
-        dividendsRegistry.put(JOE.name(), JOE.getDividend());
+        dividendsRegistry.put(TEA.name(), BigDecimal.ZERO);
+        dividendsRegistry.put(POP.name(), new BigDecimal("8"));
+        dividendsRegistry.put(ALE.name(), new BigDecimal("23"));
+        dividendsRegistry.put(GIN.name(), new BigDecimal("8"));
+        dividendsRegistry.put(JOE.name(), new BigDecimal("13"));
     }
 
     public BigDecimal find(String id) {
