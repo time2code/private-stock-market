@@ -16,6 +16,9 @@ import org.springframework.stereotype.Component;
 
 import javax.enterprise.inject.spi.CDI;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import static io.my.stockmarket.domain.TradeTxType.SELL;
 
 /**
@@ -44,12 +47,15 @@ public class FinOpsCLI implements CommandMarker, ApplicationContextAware {
     @CliCommand(value = "sellStock", help = "Calculate Price/Earnings Ratio")
     public String sellStock(
             @CliOption(key = {"ticker"}, mandatory = true, help = "ticker value is mandatory. E.g: sellStock --ticker POP") final String ticker,
-            @CliOption(key = { "quantity"}, mandatory = true, help = "Quantity to sell. E.g sellStock --quantity 101") final String quantity
+            @CliOption(key = {"quantity"}, mandatory = true, help = "Quantity to sell. E.g sellStock --quantity 101") final String quantity,
+            @CliOption(key = {"price"}, mandatory = true, help = "sell price. E.g price --price 99") final String price
             ) {
         TradeTx tradeTx = TradeTx.builder()
                 .stockTicker(ticker)
+                .price(new BigDecimal(price))
                 .quantity(Integer.parseInt(quantity))
                 .txType(SELL)
+                .time(LocalDateTime.now())
                 .build();
         return finOps.sellStock(tradeTx);
     }
