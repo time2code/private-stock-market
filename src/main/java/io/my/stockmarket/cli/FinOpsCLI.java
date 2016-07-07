@@ -1,5 +1,6 @@
 package io.my.stockmarket.cli;
 
+import io.my.stockmarket.FinOps;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -10,17 +11,21 @@ import org.springframework.shell.core.annotation.CliCommand;
 import org.springframework.shell.core.annotation.CliOption;
 import org.springframework.stereotype.Component;
 
+import javax.enterprise.inject.spi.CDI;
+
 /**
- * Market CLI Operations
+ * CLI for Financial Operations
  */
 @Component
-public class MarketOpsCLI implements CommandMarker, ApplicationContextAware {
+public class FinOpsCLI implements CommandMarker, ApplicationContextAware {
+
+    FinOps finOps = CDI.current().select(FinOps.class).get();
 
     private ApplicationContext ctx;
 
-    @CliCommand(value = "stocks", help = "Print all available stocks")
-    public String stocks() {
-        return "Stocks print here";
+    @CliCommand(value = "finops", help = "Print all available financial operations")
+    public void finOps() {
+        finOps.availableFinOps();
     }
 
     @CliCommand(value = {"help"}, help = "List all commands usage")
