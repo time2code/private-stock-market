@@ -1,11 +1,17 @@
 package io.my.stockmarket.registry;
 
 import io.my.stockmarket.domain.TradeTx;
+import io.my.stockmarket.domain.TradeTxType;
+import io.my.stockmarket.operations.FinOps;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import static io.my.stockmarket.domain.TradeTxType.SELL;
 
 /**
  * Recorded Trade Transactions
@@ -14,10 +20,15 @@ public enum TradeTxRegistry {
 
     TRANSACTIONS;
 
+    private static final Logger log = LogManager.getFormatterLogger(TradeTxRegistry.class);
     private static final Map<String, List<TradeTx>> txRegistry = new HashMap<>();
 
     public int numberOfTxs(String StockId) {
         return stockTxs(StockId).size();
+    }
+
+    public void listTxs(TradeTxType txType) {
+        txRegistry.keySet().forEach(key -> txRegistry.get(key).stream().filter(tx -> tx.getTxType().equals(txType)).forEach(tx -> log.info(tx)));
     }
 
     List<TradeTx> stockTxs(String StockId) {

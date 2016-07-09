@@ -43,6 +43,11 @@ public class FinOpsCLI implements CommandMarker, ApplicationContextAware {
         return finOps.dividendYield(ticker);
     }
 
+    @CliCommand(value = "listSellTxs", help = "List all sell transactions")
+    public void listSellTxs() {
+        finOps.listSellTxs();
+    }
+
     //TODO: Add input validations!
     @CliCommand(value = "sellStock", help = "Calculate Price/Earnings Ratio")
     public String sellStock(
@@ -57,7 +62,7 @@ public class FinOpsCLI implements CommandMarker, ApplicationContextAware {
                 .txType(SELL)
                 .time(LocalDateTime.now())
                 .build();
-        return finOps.sellStock(tradeTx);
+        return finOps.trade(tradeTx);
     }
 
     @CliCommand(value = "peRatio", help = "Calculate Price/Earnings Ratio")
