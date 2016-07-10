@@ -27,6 +27,14 @@ public enum TradeTxRegistry {
         return stockTxs(StockId).size();
     }
 
+    public void listAllTxs() {
+        txRegistry.keySet().forEach(key -> txRegistry.get(key).stream().forEach(tx -> log.info(tx)));
+    }
+
+    public Map<String, List<TradeTx>> allTxs() {
+        return txRegistry;
+    }
+
     public void listTxs(TradeTxType txType) {
         txRegistry.keySet().forEach(key -> txRegistry.get(key).stream().filter(tx -> tx.getTxType().equals(txType)).forEach(tx -> log.info(tx)));
     }

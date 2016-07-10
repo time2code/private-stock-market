@@ -5,6 +5,7 @@ import io.my.stockmarket.registry.LastDividendRegistry;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.util.Map;
 
 /**
  * Dividend Yield
@@ -17,9 +18,13 @@ public class DividendYield implements FinOp {
     private LastDividendRegistry ldRegistry;
 
     public BigDecimal evaluate(Stock stock) {
-        //TODO: handle null and consider Optional
         return ldRegistry.find(stock.getTicker())
                 .divide(stock.getParValue(), 2, BigDecimal.ROUND_HALF_UP);
+    }
+
+    @Override
+    public BigDecimal evaluate(Stock stock, Map<String, Object> params) {
+        return evaluate(stock);
     }
 
     @Override

@@ -10,10 +10,6 @@ import static io.my.stockmarket.registry.StockRegistry.valueOf;
  */
 public class TickerToStock {
 
-    public String exists(String ticker) {
-        return valueOf(ticker).getTicker();
-    }
-
     public Stock resolve(String ticker) {
         StockRegistry stockInfo = valueOf(ticker);
         return Stock.builder()

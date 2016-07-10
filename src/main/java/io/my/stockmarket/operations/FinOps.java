@@ -7,12 +7,16 @@ import io.my.stockmarket.infra.TickerToStock;
 import io.my.stockmarket.metrics.DividendYield;
 import io.my.stockmarket.metrics.FinOp;
 import io.my.stockmarket.metrics.PERatio;
+import io.my.stockmarket.metrics.VWAP;
 import io.my.stockmarket.registry.TradeCapture;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static io.my.stockmarket.registry.TradeTxRegistry.TRANSACTIONS;
 import static java.lang.String.format;
@@ -22,6 +26,7 @@ import static java.lang.String.format;
  */
 public class FinOps {
 
+    public static final String ALL_TXS = "AllTxs";
     private static final Logger log = LogManager.getFormatterLogger(FinOps.class);
     static final String STOCK_DOES_NOT_EXIST = "Stock '%s' does not exist";
     static final String TRADE_SUCCESSFUL = "Trade Transaction '%s' successful - price: %s, volume: %s, time: %s";
@@ -34,6 +39,9 @@ public class FinOps {
 
     @Inject
     private PERatio peRatio;
+
+    @Inject
+    private VWAP vwap;
 
     @Inject
     private TradeCapture tradeCapture;
@@ -51,8 +59,24 @@ public class FinOps {
         return evaluate(dividendYield, ticker);
     }
 
-    public void listSellTxs() {
-        TRANSACTIONS.listTxs(TradeTxType.SELL);
+    public void listTradeTxs(String txType) {
+        TradeTxType tradeTxType = resolveTxType(txType);
+        if (tradeTxType != null) {
+            TRANSACTIONS.listTxs(tradeTxType);
+        } else if (txType.equals(ALL_TXS)) {
+            TRANSACTIONS.listAllTxs();
+        } else {
+            log.info("Transaction type: '%s' doesn't exist", txType);
+        }
+    }
+
+    public String vwap(String ticker, int timePeriod) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("timePeriod", timePeriod);
+        Stock stock = resolve(ticker);
+        return stock != null
+                ? vwap.evaluate(stock, params).toString()
+                : format(STOCK_DOES_NOT_EXIST, ticker);
     }
 
     public String peRatio(String ticker) {
@@ -79,6 +103,15 @@ public class FinOps {
     private Stock resolve(String ticker) {
         try {
             return tickerToStock.resolve(ticker);
+        } catch (IllegalArgumentException exception) {
+            return null;
+        }
+    }
+
+    private TradeTxType resolveTxType(String txType) {
+        try {
+            TradeTxType tradeTxType = TradeTxType.valueOf(txType);
+            return tradeTxType;
         } catch (IllegalArgumentException exception) {
             return null;
         }
