@@ -14,10 +14,12 @@ import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
-
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import static io.my.stockmarket.domain.TradeTxType.SELL;
 import static io.my.stockmarket.registry.TradeTxRegistry.TRANSACTIONS;
 import static java.lang.String.format;
 
@@ -72,7 +74,7 @@ public class FinOps {
 
     public String vwap(String ticker, int timePeriod) {
         Map<String, Object> params = new HashMap<>();
-        params.put("timePeriod", timePeriod);
+        params.put("timePeriod", Long.valueOf(timePeriod));
         Stock stock = resolve(ticker);
         return stock != null
                 ? vwap.evaluate(stock, params).toString()
@@ -91,6 +93,12 @@ public class FinOps {
         } else {
             return format(STOCK_DOES_NOT_EXIST, tradeTx.getStockTicker());
         }
+    }
+
+    public void sampleData() {
+        LocalDateTime now = LocalDateTime.now();
+        trade(TradeTx.builder().stockTicker("POP").txType(SELL).time(now.minusMinutes(10)).quantity(2).price(new BigDecimal("3")).build());
+        trade(TradeTx.builder().stockTicker("POP").txType(SELL).time(now.minusMinutes(5)).quantity(21).price(new BigDecimal("1")).build());
     }
 
     private String evaluate(FinOp finOp, String ticker) {

@@ -2,17 +2,13 @@ package io.my.stockmarket.metrics;
 
 import io.my.stockmarket.domain.Stock;
 import io.my.stockmarket.domain.TradeTx;
-import io.my.stockmarket.registry.LastDividendRegistry;
-import io.my.stockmarket.registry.TradeTxRegistry;
 
-import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.time.Duration;
 import java.util.Map;
 import java.util.function.Consumer;
 
 import static io.my.stockmarket.registry.TradeTxRegistry.TRANSACTIONS;
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 /**
  * Volume Weighted Stock Price,
@@ -29,9 +25,10 @@ public class VWAP implements FinOp {
 
     @Override
     public BigDecimal evaluate(Stock stock, Map<String, Object> params) {
+        Duration minutes = Duration.ofMinutes(((Long) params.get("timePeriod")));
         Averager averager =
-        TRANSACTIONS.allTxs()
-                .get(stock.getTicker()).stream()
+        TRANSACTIONS.stockTxsWithin(stock.getTicker(), minutes)
+                .stream()
                 .collect(Averager::new, Averager::accept, Averager::combine);
         return averager.average();
     }
