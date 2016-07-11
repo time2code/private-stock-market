@@ -104,6 +104,11 @@ public class FinOpsCLI implements CommandMarker, ApplicationContextAware {
         return finOps.peRatio(ticker);
     }
 
+    @CliCommand(value = "geometricMean", help = "Geometric Mean")
+    public String geometricMean() {
+        return finOps.geometricMean(null);
+    }
+
     @CliCommand(value = "sampleData", help = "Populate sample data set")
     public void sampleData() {
         finOps.sampleData();

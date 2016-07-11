@@ -26,8 +26,8 @@ public enum StockRegistry {
     private StockType stockType;
 
     StockRegistry(String ticker, BigDecimal parValue, StockType stockType) {
-        this.parValue = parValue;
         this.ticker = ticker;
+        this.parValue = parValue;
         this.stockType = stockType;
     }
 }

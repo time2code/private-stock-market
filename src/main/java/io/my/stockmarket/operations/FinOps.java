@@ -4,10 +4,7 @@ import io.my.stockmarket.domain.Stock;
 import io.my.stockmarket.domain.TradeTx;
 import io.my.stockmarket.domain.TradeTxType;
 import io.my.stockmarket.infra.TickerToStock;
-import io.my.stockmarket.metrics.DividendYield;
-import io.my.stockmarket.metrics.FinOp;
-import io.my.stockmarket.metrics.PERatio;
-import io.my.stockmarket.metrics.VWAP;
+import io.my.stockmarket.metrics.*;
 import io.my.stockmarket.registry.TradeCapture;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,6 +41,9 @@ public class FinOps {
 
     @Inject
     private VWAP vwap;
+
+    @Inject
+    private GeometricMean geometricMean;
 
     @Inject
     private TradeCapture tradeCapture;
@@ -83,6 +83,10 @@ public class FinOps {
 
     public String peRatio(String ticker) {
         return evaluate(peRatio, ticker);
+    }
+
+    public String geometricMean(String ticker) {
+        return geometricMean.evaluate(null).toString();
     }
 
     public String trade(TradeTx tradeTx) {
