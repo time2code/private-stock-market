@@ -39,10 +39,20 @@ public class FinOpsCLI implements CommandMarker, ApplicationContextAware {
         finOps.availableFinOps();
     }
 
-    @CliCommand(value = "dividendYield", help = "Calculate Dividend Yield")
-    public String dividendYield(
-            @CliOption(key = {"ticker"}, mandatory = true, help = "ticker value is mandatory. E.g: dividendYield --ticker POP") final String ticker) {
-        return finOps.dividendYield(ticker);
+    @CliCommand(value = "dividendYieldCommon", help = "Calculate Dividend Yield for 'common' type of stocks")
+    public String dividendYieldCommon(
+            @CliOption(key = {"ticker"}, mandatory = true, help = "ticker value is mandatory. E.g: dividendYieldCommon --ticker POP") final String ticker,
+            @CliOption(key = {"price"}, mandatory = true, help = "price value is mandatory. E.g: dividendYieldCommon --price 2.17")
+            final String price) {
+        return finOps.dividendYieldCommon(ticker, price);
+    }
+
+    @CliCommand(value = "dividendYieldPreferred", help = "Calculate dividend yield for stocks of type 'preferred'")
+    public String dividendYieldPreferred(
+            @CliOption(key = {"ticker"}, mandatory = true, help = "ticker value is mandatory. E.g: dividendYieldPreferred --ticker POP ") final String ticker,
+            @CliOption(key = {"price"}, mandatory = true, help = "price value is mandatory. E.g: dividendYieldPreferred --price 2.17")
+            final String price) {
+        return finOps.dividendYieldPreferred(ticker, price);
     }
 
     @CliCommand(value = "listTradeTxs", help = "List trade transactions either BUY or SELL")
@@ -59,7 +69,7 @@ public class FinOpsCLI implements CommandMarker, ApplicationContextAware {
 
     @CliCommand(value = "vwap", help = "Volume weighted average price")
     public String vwap(
-            @CliOption(key = {"ticker"}, mandatory = true, help = "ticker value is mandatory. E.g: dividendYield --ticker POP") final String ticker,
+            @CliOption(key = {"ticker"}, mandatory = true, help = "ticker value is mandatory. E.g: dividendYieldCommon --ticker POP") final String ticker,
             @CliOption(key = {"period"}, mandatory = true, help = "Period of time in minutes to calculate vwap within. E.g: vwap --period 15") final String period
     ) {
         return finOps.vwap(ticker, Integer.parseInt(period));
@@ -100,13 +110,15 @@ public class FinOpsCLI implements CommandMarker, ApplicationContextAware {
 
     @CliCommand(value = "peRatio", help = "Calculate Price/Earnings Ratio")
     public String peRatio(
-            @CliOption(key = {"ticker"}, mandatory = true, help = "ticker value is mandatory. E.g: peRatio --ticker POP") final String ticker) {
-        return finOps.peRatio(ticker);
+            @CliOption(key = {"ticker"}, mandatory = true, help = "ticker value is mandatory. E.g: peRatio --ticker POP") final String ticker,
+            @CliOption(key = {"price"}, mandatory = true, help = "price value is mandatory. E.g: peRatio --price 2.17")
+            final String price) {
+        return finOps.peRatio(ticker, price);
     }
 
     @CliCommand(value = "geometricMean", help = "Geometric Mean")
     public String geometricMean() {
-        return finOps.geometricMean(null);
+        return finOps.geometricMean();
     }
 
     @CliCommand(value = "sampleData", help = "Populate sample data set")

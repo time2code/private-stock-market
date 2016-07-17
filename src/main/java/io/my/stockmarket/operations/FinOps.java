@@ -5,7 +5,6 @@ import io.my.stockmarket.domain.TradeTx;
 import io.my.stockmarket.domain.TradeTxType;
 import io.my.stockmarket.metrics.*;
 import io.my.stockmarket.registry.StockRegistry;
-import io.my.stockmarket.registry.TradeCapture;
 import io.my.stockmarket.registry.TradeTxRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +33,10 @@ public class FinOps {
     private Instance<FinOp> finOps;
 
     @Inject
-    private DividendYield dividendYield;
+    private DividendYieldCommon dividendYieldCommon;
+
+    @Inject
+    private DividendYieldPreferred dividendYieldPreferred;
 
     @Inject
     private PERatio peRatio;
@@ -44,9 +46,6 @@ public class FinOps {
 
     @Inject
     private GeometricMean geometricMean;
-
-    @Inject
-    private TradeCapture tradeCapture;
 
     @Inject
     private StockRegistry stockRegister;
@@ -60,8 +59,12 @@ public class FinOps {
         finOps.forEach(finOp -> log.info(finOp.name()));
     }
 
-    public String dividendYield(String ticker) {
-        return evaluate(dividendYield, ticker);
+    public String dividendYieldCommon(String ticker, String price) {
+        return evaluate(dividendYieldCommon, ticker, price);
+    }
+
+    public String dividendYieldPreferred(String ticker, String price) {
+        return evaluate(dividendYieldPreferred, ticker, price);
     }
 
     public void listTradeTxs(String txType) {
@@ -84,18 +87,18 @@ public class FinOps {
                 : format(STOCK_DOES_NOT_EXIST, ticker);
     }
 
-    public String peRatio(String ticker) {
-        return evaluate(peRatio, ticker);
+    public String peRatio(String ticker, String price) {
+        return evaluate(peRatio, ticker, price);
     }
 
-    public String geometricMean(String ticker) {
-        return geometricMean.evaluate(null).toString();
+    public String geometricMean() {
+        return geometricMean.evaluate(null, new BigDecimal("0")).toString();
     }
 
     public String trade(TradeTx tradeTx) {
         Stock stock = resolve(tradeTx.getStockTicker());
         if (stock != null) {
-            tradeCapture.trade(tradeTx);
+            tradeTxRegistry.trade(tradeTx);
             return format(TRADE_SUCCESSFUL, tradeTx.getTxType(), tradeTx.getPrice(), tradeTx.getQuantity(), tradeTx.getTime());
         } else {
             return format(STOCK_DOES_NOT_EXIST, tradeTx.getStockTicker());
@@ -108,10 +111,11 @@ public class FinOps {
         trade(TradeTx.builder().stockTicker("POP").txType(SELL).time(now.minusMinutes(5)).quantity(21).price(new BigDecimal("1")).build());
     }
 
-    private String evaluate(FinOp finOp, String ticker) {
+    private String evaluate(FinOp finOp, String ticker, String priceString) {
+        BigDecimal price = new BigDecimal(priceString);
         Stock stock = resolve(ticker);
         return stock != null
-                ? finOp.evaluate(stock).toString()
+                ? finOp.evaluate(stock, price).toString()
                 : format(STOCK_DOES_NOT_EXIST, ticker);
     }
 

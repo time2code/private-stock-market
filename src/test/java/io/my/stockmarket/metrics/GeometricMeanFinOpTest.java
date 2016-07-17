@@ -51,7 +51,7 @@ public class GeometricMeanFinOpTest {
 
     @Test
     public void evaluate() throws Exception {
-        assertEquals(geometricMeanResult, geometricMean.evaluate(null, null));
+        assertEquals(geometricMeanResult, geometricMean.evaluate(null, new BigDecimal("0")));
     }
 
     private Map<String, Stock> mockStocks(List<String> prices) {

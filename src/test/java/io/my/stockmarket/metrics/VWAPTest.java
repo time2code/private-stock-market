@@ -5,6 +5,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.math.BigDecimal;
+
 import static io.my.stockmarket.metrics.VWAP.NAME;
 import static org.junit.Assert.assertEquals;
 
@@ -22,7 +24,7 @@ public class VWAPTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void evaluate() throws Exception {
-        vwap.evaluate(null);
+        vwap.evaluate(null, new BigDecimal("0"));
     }
 
 }

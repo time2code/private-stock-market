@@ -7,16 +7,15 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
 
-
 @RunWith(MockitoJUnitRunner.class)
-public class DividendYieldNameTest {
+public class DividendYieldPreferredNameTest {
 
     @InjectMocks
-    DividendYield dividendYield;
+    DividendYieldPreferred dividendYieldPreferred;
 
     @Test
     public void name() throws Exception {
-        assertEquals(DividendYield.NAME, dividendYield.name());
+        assertEquals(DividendYieldPreferred.NAME, dividendYieldPreferred.name());
     }
 
 }

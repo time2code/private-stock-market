@@ -24,7 +24,7 @@ public class GeometricMean implements FinOp {
     @Inject
     private StockRegistry stockRegistry;
 
-    public BigDecimal evaluate(Stock stock) {
+    public BigDecimal evaluate(Stock stock, BigDecimal price) {
         GeometricMeanImpl geometricMean =
         stockRegistry.allCommonStocks().values().stream().collect(GeometricMeanImpl::new, GeometricMeanImpl::accept, GeometricMeanImpl::combine);
 
@@ -33,7 +33,7 @@ public class GeometricMean implements FinOp {
 
     @Override
     public BigDecimal evaluate(Stock stock, Map<String, Object> params) {
-        return evaluate(stock);
+        throw new UnsupportedOperationException("Operation is not supported");
     }
 
     @Override

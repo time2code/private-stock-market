@@ -28,6 +28,13 @@ public class TradeTxRegistry {
         TX_REGISTRY.keySet().forEach(key -> TX_REGISTRY.get(key).stream().forEach(tx -> log.info(tx)));
     }
 
+    public TradeTx trade(TradeTx tradeTx) {
+        String ticker = tradeTx.getStockTicker();
+        List<TradeTx> stockTxs = stockTxs(ticker);
+        stockTxs.add(tradeTx);
+        return tradeTx;
+    }
+
     public Map<String, List<TradeTx>> allTxs() {
         return TX_REGISTRY;
     }

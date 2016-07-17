@@ -8,23 +8,23 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 /**
- * Dividend Yield
+ * Dividend Yield. For common stocks
  */
-public class DividendYield implements FinOp {
+public class DividendYieldCommon implements FinOp {
 
-    static final String NAME = "Dividend Yield";
+    static final String NAME = "Dividend Yield. Common stocks";
 
     @Inject
     private LastDividendRegistry ldRegistry;
 
-    public BigDecimal evaluate(Stock stock) {
+    public BigDecimal evaluate(Stock stock, BigDecimal price) {
         return ldRegistry.find(stock.getTicker())
-                .divide(stock.getParValue(), 2, BigDecimal.ROUND_HALF_UP);
+                .divide(price, 2, BigDecimal.ROUND_HALF_UP);
     }
 
     @Override
     public BigDecimal evaluate(Stock stock, Map<String, Object> params) {
-        return evaluate(stock);
+        throw new UnsupportedOperationException("Operation is not supported");
     }
 
     @Override

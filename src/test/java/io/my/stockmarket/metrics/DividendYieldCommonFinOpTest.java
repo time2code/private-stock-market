@@ -20,10 +20,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
-public class DividendYieldFinOpTest {
+public class DividendYieldCommonFinOpTest {
 
     private LastDividendRegistry lastDividendRegistry;
-    private DividendYield dividendYield;
+    private DividendYieldCommon dividendYieldCommon;
 
     @Parameters
     public static Collection<Object[]> data() {
@@ -38,7 +38,7 @@ public class DividendYieldFinOpTest {
     public String dividends;
 
     @Parameter(1)
-    public String parValue;
+    public String price;
 
     @Parameter(2)
     public String result;
@@ -46,18 +46,15 @@ public class DividendYieldFinOpTest {
     @Before
     public void each() throws Exception {
         lastDividendRegistry = mock(LastDividendRegistry.class);
-        dividendYield = new DividendYield();
-        Field field = DividendYield.class.getDeclaredField("ldRegistry");
+        dividendYieldCommon = new DividendYieldCommon();
+        Field field = DividendYieldCommon.class.getDeclaredField("ldRegistry");
         field.setAccessible(true);
-        field.set(dividendYield, lastDividendRegistry);
+        field.set(dividendYieldCommon, lastDividendRegistry);
     }
 
     @Test
     public void dividendsPositive() throws Exception {
         when(lastDividendRegistry.find(anyString())).thenReturn(new BigDecimal(dividends));
-        Stock stock = Stock.builder()
-                        .parValue(new BigDecimal(parValue))
-                        .build();
-        assertEquals(new BigDecimal(result), dividendYield.evaluate(stock, null));
+        assertEquals(new BigDecimal(result), dividendYieldCommon.evaluate(Stock.builder().build(), new BigDecimal(price)));
     }
 }

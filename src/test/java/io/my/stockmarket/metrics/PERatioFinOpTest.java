@@ -31,7 +31,7 @@ public class PERatioFinOpTest {
         return Arrays.asList(new Object[][] {
                 {"8","100","12.50"},
                 {"2","15", "7.50"},
-                {"0","11", "11.00"},
+                {"0","11", "0.00"},
         });
     }
 
@@ -39,7 +39,7 @@ public class PERatioFinOpTest {
     public String dividends;
 
     @Parameterized.Parameter(1)
-    public String parValue;
+    public String price;
 
     @Parameterized.Parameter(2)
     public String result;
@@ -57,10 +57,7 @@ public class PERatioFinOpTest {
     @Test
     public void evaluate() throws Exception {
         when(lastDividendRegistry.find(anyString())).thenReturn(new BigDecimal(dividends));
-        Stock stock = Stock.builder()
-                .parValue(new BigDecimal(parValue))
-                .build();
-        assertEquals(new BigDecimal(result), peRatio.evaluate(stock, null));
+        assertEquals(new BigDecimal(result), peRatio.evaluate(Stock.builder().build(), new BigDecimal(price)));
     }
 
 }

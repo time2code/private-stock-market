@@ -29,6 +29,7 @@ import org.springframework.stereotype.Component;
 public class MarketPromptProvider extends DefaultPromptProvider {
 
 	protected static final String DARK_POOL = "DarkPool>";
+
 	@Override
 	public String getPrompt() {
 		return DARK_POOL;

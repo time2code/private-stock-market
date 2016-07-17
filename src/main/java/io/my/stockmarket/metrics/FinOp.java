@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public interface FinOp {
 
-    BigDecimal evaluate(Stock stock);
+    BigDecimal evaluate(Stock stock, BigDecimal price);
     BigDecimal evaluate(Stock stock, Map<String, Object> params);
     String name();
 }

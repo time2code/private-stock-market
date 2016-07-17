@@ -25,8 +25,8 @@ public class VWAP implements FinOp {
     private TradeTxRegistry tradeTxRegistry;
 
     @Override
-    public BigDecimal evaluate(Stock stock) {
-        throw new UnsupportedOperationException("Operation is not supported ");
+    public BigDecimal evaluate(Stock stock, BigDecimal price) {
+        throw new UnsupportedOperationException("Operation is not supported");
     }
 
     @Override
