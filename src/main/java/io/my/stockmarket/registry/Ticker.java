@@ -5,16 +5,11 @@ package io.my.stockmarket.registry;
  */
 public enum Ticker {
 
-    TEA("TEA"),
-    POP("POP"),
-    ALE("ALE"),
-    GIN("GIN"),
-    JOE("JOE"),
+    TEA,
+    POP,
+    ALE,
+    GIN,
+    JOE,
     ;
 
-    private String ticker;
-
-    Ticker(String ticker) {
-        this.ticker = ticker;
-    }
 }

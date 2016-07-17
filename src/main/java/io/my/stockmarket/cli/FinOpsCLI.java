@@ -60,7 +60,7 @@ public class FinOpsCLI implements CommandMarker, ApplicationContextAware {
     @CliCommand(value = "vwap", help = "Volume weighted average price")
     public String vwap(
             @CliOption(key = {"ticker"}, mandatory = true, help = "ticker value is mandatory. E.g: dividendYield --ticker POP") final String ticker,
-            @CliOption(key = {"period"}, mandatory = true, help = "Period of time to calculate vwap within. E.g: vwap --period 15") final String period
+            @CliOption(key = {"period"}, mandatory = true, help = "Period of time in minutes to calculate vwap within. E.g: vwap --period 15") final String period
     ) {
         return finOps.vwap(ticker, Integer.parseInt(period));
     }

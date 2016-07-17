@@ -6,6 +6,7 @@ import io.my.stockmarket.domain.TradeTxType;
 import io.my.stockmarket.metrics.*;
 import io.my.stockmarket.registry.StockRegistry;
 import io.my.stockmarket.registry.TradeCapture;
+import io.my.stockmarket.registry.TradeTxRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,7 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static io.my.stockmarket.domain.TradeTxType.SELL;
-import static io.my.stockmarket.registry.TradeTxRegistry.TRANSACTIONS;
 import static java.lang.String.format;
 
 /**
@@ -51,6 +51,9 @@ public class FinOps {
     @Inject
     private StockRegistry stockRegister;
 
+    @Inject
+    private TradeTxRegistry tradeTxRegistry;
+
 
     public void availableFinOps() {
         log.info("Financial Operations:");
@@ -64,9 +67,9 @@ public class FinOps {
     public void listTradeTxs(String txType) {
         TradeTxType tradeTxType = resolveTxType(txType);
         if (tradeTxType != null) {
-            TRANSACTIONS.listTxs(tradeTxType);
+            tradeTxRegistry.listTxs(tradeTxType);
         } else if (txType.equals(ALL_TXS)) {
-            TRANSACTIONS.listAllTxs();
+            tradeTxRegistry.listAllTxs();
         } else {
             log.info("Transaction type: '%s' doesn't exist", txType);
         }

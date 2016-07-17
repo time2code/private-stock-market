@@ -20,7 +20,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
-public class DividendYieldTest {
+public class DividendYieldFinOpTest {
 
     private LastDividendRegistry lastDividendRegistry;
     private DividendYield dividendYield;

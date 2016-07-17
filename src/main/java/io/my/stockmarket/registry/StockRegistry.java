@@ -1,7 +1,6 @@
 package io.my.stockmarket.registry;
 
 import io.my.stockmarket.domain.Stock;
-import io.my.stockmarket.domain.StockType;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.math.BigDecimal;

@@ -18,12 +18,10 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
-public class GeometricMeanTest {
+public class GeometricMeanFinOpTest {
 
     private StockRegistry stockRegistry;
     private GeometricMean geometricMean;
-
-    private static List<Object[]> list = new ArrayList<>();
 
     @Parameters
     public static Collection<Object[]> data() {

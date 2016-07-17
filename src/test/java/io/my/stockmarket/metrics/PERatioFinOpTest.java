@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
  * ego on 2016.07
  */
 @RunWith(Parameterized.class)
-public class PERatioTest {
+public class PERatioFinOpTest {
 
     private LastDividendRegistry lastDividendRegistry;
     private PERatio peRatio;
