@@ -15,7 +15,6 @@ import org.springframework.shell.core.annotation.CliOption;
 import org.springframework.stereotype.Component;
 
 import javax.enterprise.inject.spi.CDI;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -44,7 +43,11 @@ public class FinOpsCLI implements CommandMarker, ApplicationContextAware {
             @CliOption(key = {"ticker"}, mandatory = true, help = "ticker value is mandatory. E.g: dividendYieldCommon --ticker POP") final String ticker,
             @CliOption(key = {"price"}, mandatory = true, help = "price value is mandatory. E.g: dividendYieldCommon --price 2.17")
             final String price) {
-        return finOps.dividendYieldCommon(ticker, price);
+        try {
+            return finOps.dividendYieldCommon(ticker, price);
+        } catch (NumberFormatException exception) {
+            return String.format("Please enter correct number: %s", price);
+        }
     }
 
     @CliCommand(value = "dividendYieldPreferred", help = "Calculate dividend yield for stocks of type 'preferred'")
@@ -52,7 +55,11 @@ public class FinOpsCLI implements CommandMarker, ApplicationContextAware {
             @CliOption(key = {"ticker"}, mandatory = true, help = "ticker value is mandatory. E.g: dividendYieldPreferred --ticker POP ") final String ticker,
             @CliOption(key = {"price"}, mandatory = true, help = "price value is mandatory. E.g: dividendYieldPreferred --price 2.17")
             final String price) {
-        return finOps.dividendYieldPreferred(ticker, price);
+        try {
+            return finOps.dividendYieldPreferred(ticker, price);
+        } catch (NumberFormatException exception) {
+            return String.format("Please enter correct number: %s", price);
+        }
     }
 
     @CliCommand(value = "listTradeTxs", help = "List trade transactions either BUY or SELL")
@@ -72,7 +79,11 @@ public class FinOpsCLI implements CommandMarker, ApplicationContextAware {
             @CliOption(key = {"ticker"}, mandatory = true, help = "ticker value is mandatory. E.g: dividendYieldCommon --ticker POP") final String ticker,
             @CliOption(key = {"period"}, mandatory = true, help = "Period of time in minutes to calculate vwap within. E.g: vwap --period 15") final String period
     ) {
-        return finOps.vwap(ticker, Integer.parseInt(period));
+        try {
+            return finOps.vwap(ticker, Integer.parseInt(period));
+        } catch (NumberFormatException exception) {
+            return String.format("Please enter correct integer number: %s", period);
+        }
     }
 
     //TODO: Add input validations for intended types!
@@ -82,14 +93,19 @@ public class FinOpsCLI implements CommandMarker, ApplicationContextAware {
             @CliOption(key = {"quantity"}, mandatory = true, help = "Quantity to sell. E.g sellStock --quantity 101") final String quantity,
             @CliOption(key = {"price"}, mandatory = true, help = "sell price. E.g price --price 99") final String price
             ) {
-        TradeTx tradeTx = TradeTx.builder()
-                .stockTicker(ticker)
-                .price(new BigDecimal(price))
-                .quantity(Integer.parseInt(quantity))
-                .txType(SELL)
-                .time(LocalDateTime.now())
-                .build();
-        return finOps.trade(tradeTx);
+        try {
+            TradeTx tradeTx = TradeTx.builder()
+                    .stockTicker(ticker)
+                    .price(new BigDecimal(price))
+                    .quantity(Integer.parseInt(quantity))
+                    .txType(SELL)
+                    .time(LocalDateTime.now())
+                    .build();
+            return finOps.trade(tradeTx);
+        } catch (NumberFormatException exception) {
+            return String.format("Please enter correct number price: %s, quantity: %s", price, quantity);
+        }
+
     }
 
     @CliCommand(value = "buyStock", help = "Buy Stock")
@@ -98,14 +114,20 @@ public class FinOpsCLI implements CommandMarker, ApplicationContextAware {
             @CliOption(key = {"quantity"}, mandatory = true, help = "Quantity to sell. E.g sellStock --quantity 41") final String quantity,
             @CliOption(key = {"price"}, mandatory = true, help = "sell price. E.g price --price 17") final String price
     ) {
-        TradeTx tradeTx = TradeTx.builder()
-                .stockTicker(ticker)
-                .price(new BigDecimal(price))
-                .quantity(Integer.parseInt(quantity))
-                .txType(BUY)
-                .time(LocalDateTime.now())
-                .build();
-        return finOps.trade(tradeTx);
+        try {
+            TradeTx tradeTx = TradeTx.builder()
+                    .stockTicker(ticker)
+                    .price(new BigDecimal(price))
+                    .quantity(Integer.parseInt(quantity))
+                    .txType(BUY)
+                    .time(LocalDateTime.now())
+                    .build();
+            return finOps.trade(tradeTx);
+        } catch (NumberFormatException exception) {
+            return String.format("Please enter correct number price: %s, quantity: %s", price, quantity);
+
+        }
+
     }
 
     @CliCommand(value = "peRatio", help = "Calculate Price/Earnings Ratio")
@@ -113,7 +135,11 @@ public class FinOpsCLI implements CommandMarker, ApplicationContextAware {
             @CliOption(key = {"ticker"}, mandatory = true, help = "ticker value is mandatory. E.g: peRatio --ticker POP") final String ticker,
             @CliOption(key = {"price"}, mandatory = true, help = "price value is mandatory. E.g: peRatio --price 2.17")
             final String price) {
-        return finOps.peRatio(ticker, price);
+        try {
+            return finOps.peRatio(ticker, price);
+        } catch (NumberFormatException exception) {
+            return String.format("Please enter correct number: %s", price);
+        }
     }
 
     @CliCommand(value = "geometricMean", help = "Geometric Mean")

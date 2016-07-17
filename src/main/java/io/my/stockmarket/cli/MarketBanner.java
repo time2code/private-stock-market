@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class MarketBannerProvider extends DefaultBannerProvider {
+public class MarketBanner extends DefaultBannerProvider {
 
 	public String getBanner() {
 		return

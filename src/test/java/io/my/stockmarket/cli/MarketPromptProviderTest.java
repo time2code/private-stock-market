@@ -9,11 +9,11 @@ import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.class)
 public class MarketPromptProviderTest {
 
-    MarketPromptProvider marketPromptProvider = new MarketPromptProvider();
+    MarketPrompt marketPromptProvider = new MarketPrompt();
 
     @Test
     public void getPrompt() throws Exception {
-        assertEquals(MarketPromptProvider.DARK_POOL, marketPromptProvider.getPrompt());
+        assertEquals(MarketPrompt.DARK_POOL, marketPromptProvider.getPrompt());
     }
 
 }

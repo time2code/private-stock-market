@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class MarketPromptProvider extends DefaultPromptProvider {
+public class MarketPrompt extends DefaultPromptProvider {
 
 	protected static final String DARK_POOL = "DarkPool>";
 

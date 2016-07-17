@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static io.my.stockmarket.domain.StockType.COMMON;
+import static io.my.stockmarket.domain.StockType.PREFERRED;
 import static io.my.stockmarket.registry.Ticker.*;
 
 /**
@@ -31,7 +32,7 @@ public class StockRegistry {
                 Stock.builder().ticker(ALE.name()).stockType(COMMON).parValue(new BigDecimal("60"))
                         .build());
         COMMON_STOCK_REGISTRY.put(GIN.name(),
-                Stock.builder().ticker(GIN.name()).stockType(COMMON).parValue(new BigDecimal("100"))
+                Stock.builder().ticker(GIN.name()).stockType(PREFERRED).parValue(new BigDecimal("100"))
                         .build());
         COMMON_STOCK_REGISTRY.put(JOE.name(),
                 Stock.builder().ticker(JOE.name()).stockType(COMMON).parValue(new BigDecimal("250"))
