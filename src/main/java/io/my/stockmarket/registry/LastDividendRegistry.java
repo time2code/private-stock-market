@@ -1,31 +1,40 @@
 package io.my.stockmarket.registry;
 
+import com.sun.org.apache.bcel.internal.generic.POP;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.my.stockmarket.registry.StockRegistry.*;
+import static io.my.stockmarket.registry.Ticker.*;
 
 /**
  * Latest Dividend Registry
  */
-public enum LastDividendRegistry {
+@ApplicationScoped
+public class LastDividendRegistry {
 
-    LATEST_DIVIDEND;
-
-    private static final Map<String, BigDecimal> dividendsRegistry;
+    private static final Map<String, BigDecimal> DIVIDENDS_REGISTRY = new HashMap<>();
+    static final int SCALE = 2;
+    static final int ROUNDING_MODE = BigDecimal.ROUND_HALF_UP;
 
     static
     {
-        dividendsRegistry = new HashMap<>();
-        dividendsRegistry.put(TEA.name(), BigDecimal.ZERO);
-        dividendsRegistry.put(POP.name(), new BigDecimal("8"));
-        dividendsRegistry.put(ALE.name(), new BigDecimal("23"));
-        dividendsRegistry.put(GIN.name(), new BigDecimal("8"));
-        dividendsRegistry.put(JOE.name(), new BigDecimal("13"));
+        DIVIDENDS_REGISTRY.put(TEA.name(), BigDecimal.ZERO);
+        DIVIDENDS_REGISTRY.put(POP.name(), scale(new BigDecimal("8")));
+        DIVIDENDS_REGISTRY.put(ALE.name(), scale(new BigDecimal("23")));
+        DIVIDENDS_REGISTRY.put(GIN.name(), scale(new BigDecimal("8")));
+        DIVIDENDS_REGISTRY.put(JOE.name(), scale(new BigDecimal("13")));
+    }
+
+    private static BigDecimal scale(BigDecimal number) {
+        return number.setScale(SCALE, ROUNDING_MODE);
     }
 
     public BigDecimal find(String id) {
-        return dividendsRegistry.get(id);
+        return DIVIDENDS_REGISTRY.get(id);
     }
 }

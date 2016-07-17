@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class PERatio implements FinOp {
 
-    static final String P_R_RATIO = "P/R ratio";
+    static final String NAME = "P/R ratio";
 
     @Inject
     private LastDividendRegistry ldRegistry;
@@ -21,7 +21,7 @@ public class PERatio implements FinOp {
         BigDecimal dividend = ldRegistry.find(stock.getTicker());
         return dividend.compareTo(BigDecimal.ZERO) > 0
                 ? stock.getParValue().divide(dividend, 2, BigDecimal.ROUND_HALF_UP)
-                : stock.getParValue();
+                : stock.getParValue().setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
     @Override
@@ -31,6 +31,6 @@ public class PERatio implements FinOp {
 
     @Override
     public String name() {
-        return P_R_RATIO;
+        return NAME;
     }
 }

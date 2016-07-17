@@ -3,8 +3,8 @@ package io.my.stockmarket.operations;
 import io.my.stockmarket.domain.Stock;
 import io.my.stockmarket.domain.TradeTx;
 import io.my.stockmarket.domain.TradeTxType;
-import io.my.stockmarket.infra.TickerToStock;
 import io.my.stockmarket.metrics.*;
+import io.my.stockmarket.registry.StockRegistry;
 import io.my.stockmarket.registry.TradeCapture;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -49,7 +49,7 @@ public class FinOps {
     private TradeCapture tradeCapture;
 
     @Inject
-    private TickerToStock tickerToStock;
+    private StockRegistry stockRegister;
 
 
     public void availableFinOps() {
@@ -114,7 +114,7 @@ public class FinOps {
 
     private Stock resolve(String ticker) {
         try {
-            return tickerToStock.resolve(ticker);
+            return stockRegister.commonStock(ticker);
         } catch (IllegalArgumentException exception) {
             return null;
         }

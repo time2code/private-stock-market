@@ -1,31 +1,34 @@
 package io.my.stockmarket.metrics;
 
 import io.my.stockmarket.domain.Stock;
-import io.my.stockmarket.domain.TradeTx;
 import io.my.stockmarket.registry.LastDividendRegistry;
 import io.my.stockmarket.registry.StockRegistry;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Consumer;
+
+import static io.my.stockmarket.util.BDScale.defaultScale;
 
 /**
  * Geometric Mean
  */
 public class GeometricMean implements FinOp {
 
-    static final String GEOMETRIC_MEAN = "Geometric Mean";
+    static final String NAME = "Geometric Mean";
 
     @Inject
     private LastDividendRegistry ldRegistry;
 
+    @Inject
+    private StockRegistry stockRegistry;
+
     public BigDecimal evaluate(Stock stock) {
         GeometricMeanImpl geometricMean =
-        Arrays.stream(StockRegistry.values()).collect(GeometricMeanImpl::new, GeometricMeanImpl::accept, GeometricMeanImpl::combine);
+        stockRegistry.allCommonStocks().values().stream().collect(GeometricMeanImpl::new, GeometricMeanImpl::accept, GeometricMeanImpl::combine);
 
-        return geometricMean.geometricMean();
+        return defaultScale(geometricMean.geometricMean());
     }
 
     @Override
@@ -35,10 +38,10 @@ public class GeometricMean implements FinOp {
 
     @Override
     public String name() {
-        return GEOMETRIC_MEAN;
+        return NAME;
     }
 
-    private class GeometricMeanImpl implements Consumer<StockRegistry> {
+    private class GeometricMeanImpl implements Consumer<Stock> {
 
         private BigDecimal price = BigDecimal.ONE;
         private int totalStocks = 0;
@@ -50,8 +53,8 @@ public class GeometricMean implements FinOp {
         }
 
         @Override
-        public void accept(StockRegistry stockRegistry) {
-            price = price.multiply(stockRegistry.getParValue());
+        public void accept(Stock stock) {
+            price = price.multiply(stock.getParValue());
             totalStocks = ++totalStocks;
         }
 

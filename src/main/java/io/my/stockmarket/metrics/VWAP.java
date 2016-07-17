@@ -16,7 +16,7 @@ import static io.my.stockmarket.registry.TradeTxRegistry.TRANSACTIONS;
  */
 public class VWAP implements FinOp {
 
-    static final String VOLUME_WEIGHTED_STOCK_PRICE = "Volume Weighted Stock Price";
+    static final String NAME = "Volume Weighted Stock Price";
 
     @Override
     public BigDecimal evaluate(Stock stock) {
@@ -35,7 +35,7 @@ public class VWAP implements FinOp {
 
     @Override
     public String name() {
-        return VOLUME_WEIGHTED_STOCK_PRICE;
+        return NAME;
     }
 
     private class Averager implements Consumer<TradeTx> {

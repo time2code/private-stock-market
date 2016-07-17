@@ -1,6 +1,5 @@
 package io.my;
 
-import io.my.stockmarket.registry.StockRegistry;
 import io.my.stockmarket.registry.TradeTxRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +25,5 @@ public class StockMarket {
     public void openMarket(@Observes ContainerInitialized event, @Parameters List<String> params) throws IOException, NamingException {
         Bootstrap.main(params.toArray(new String[params.size()]));
         log.info("Hello Stock Market, number of params: %s! ", params.size());
-        log.info("Number of Txs: %s \n", tradeTxRegistry.numberOfTxs(StockRegistry.POP.name()));
     }
 }
