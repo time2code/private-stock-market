@@ -13,4 +13,5 @@
 *Use 'Tab' keyboard key to facilitate typing commands and params*
 
 
-Good luck with trading!
+
+**Good luck with trading!**
