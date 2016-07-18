@@ -63,4 +63,8 @@ public class TradeTxRegistry {
         TX_REGISTRY.put(stockTicker, new LinkedList<>());
         return TX_REGISTRY.get(stockTicker);
     }
+
+    public void clearTxs() {
+        TX_REGISTRY.clear();
+    }
 }
